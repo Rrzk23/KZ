@@ -3,10 +3,16 @@ import express, { NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import createHttpError, { isHttpError } from 'http-errors';
+import sessionMiddleware from './middlewares/session';
+import adminRoute from './routes/adminRoute';
+import projectRoute from './routes/projectRoute';
+import { requireAuth } from './middlewares/auth';
 
 
 const app = express();
 app.use(express.json());
+
+app.use(sessionMiddleware);
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -15,6 +21,9 @@ app.use(cors({
 ));
 
 app.use(morgan('dev'));
+
+app.use('api/admin', adminRoute);
+app.use('api/projects', requireAuth, projectRoute);
 
 
 app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
