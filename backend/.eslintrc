@@ -8,9 +8,11 @@
       "eslint:recommended",
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended"
+      
     ],
     "rules": {
         "no-console": 1,
-        "no-loops/no-loops": 2
+        "no-loops/no-loops": 2,
+        "import/no-extraneous-dependencies": [2,  {"devDependencies": true} ]
     }
   }
