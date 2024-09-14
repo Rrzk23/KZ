@@ -2,11 +2,8 @@ import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import app from '../src/app';
-import sessionConfig from '../src/config/sessionConfig';
-import { describe, expect, beforeAll, afterAll, it, beforeEach, afterEach } from '@jest/globals';
-import { MemoryStore } from 'express-session';
-import env from '../src/utils/env';
-import session from 'express-session';
+import { describe, expect, beforeAll, afterAll, it, beforeEach } from '@jest/globals';
+
 
 
 
@@ -48,10 +45,6 @@ describe('Authentication and Project Tests', () => {
       });
     //console.log(signupResponse.body)
     expect(signupResponse.status).toBe(201);
-    const adminId = signupResponse.body._id;
-  
-
-
     const admin = await agent
       .get('/api/admin/');
   
