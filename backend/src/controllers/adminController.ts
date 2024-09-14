@@ -5,29 +5,30 @@ import bcrypt from 'bcrypt';
 
 interface AdminSignUp{
     adminName: string;
-    passwordRaw: string;
+    password: string;
 }
 
 interface AdminLoginBody {
     adminName: string;
-    passwordRaw: string;
+    password: string;
 }
 
 export const adminSignUp : RequestHandler<unknown, unknown, AdminSignUp, unknown> = async (req, res, next) => {
-    const {adminName, passwordRaw} = req.body;
+    const {adminName} = req.body;
+    const passwordRaw = req.body.password;
     try {
         const admin = await Admin
-                    .findOne({adminName: adminName})
-                    .exec();
+        .findOne()
+        .exec();
         if (admin) {
-            throw createHttpError(409, 'adminname already exists');
+            throw createHttpError(409, 'admin already exists');
         }
         const hashedPassword = await bcrypt.hash(passwordRaw, 10);
         const newadmin = await Admin.create({
-            adminname : adminName,
+            adminName : adminName,
             password: hashedPassword
         });
-        //req.session.adminId = newadmin._id;
+        req.session.adminId = newadmin._id;
         res.status(201).json(newadmin);
 
     } catch (err) {
@@ -36,7 +37,8 @@ export const adminSignUp : RequestHandler<unknown, unknown, AdminSignUp, unknown
 }
 
 export const adminLogin : RequestHandler<unknown, unknown, AdminLoginBody, unknown> = async (req, res, next) => {
-    const { adminName, passwordRaw } = req.body;
+    const { adminName } = req.body;
+    const passwordRaw = req.body.password;
     try {
       if (!adminName || !passwordRaw) { 
         throw createHttpError(400, 'Admin name or password missing');
@@ -52,7 +54,7 @@ export const adminLogin : RequestHandler<unknown, unknown, AdminLoginBody, unkno
       if (!isPasswordValid) {
         throw createHttpError(401, 'Incorrect password or email');
       }
-      //req.session.adminId = admin._id;
+      req.session.adminId = admin._id;
       res.status(201).json(admin);
     } catch (error) {
       next(error);
@@ -61,6 +63,7 @@ export const adminLogin : RequestHandler<unknown, unknown, AdminLoginBody, unkno
 };
 
 export const getAuthAdmin : RequestHandler = async (req, res, next) => {
+    
     const authenticatedAdminId = req.session.adminId;
     try {
         const admin = await Admin
@@ -73,7 +76,7 @@ export const getAuthAdmin : RequestHandler = async (req, res, next) => {
       }
 };
 
-export const adminLogout : RequestHandler = async (req, res, next) => {
+export const adminLogout : RequestHandler =  (req, res, next) => {
     req.session.destroy((err) => {
       if (err) {
         next(err);

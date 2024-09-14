@@ -10,7 +10,10 @@
 
 - Admin which is me, has an admin name and password for initial setup.
 - project which has title, description, url(s) for the image(s)
-- comments that viewer leaves on.
+- comments that viewer leaves on should also showing reply.
+- possible strucute collections of comments and comments = set of(parentComments)
+- then each parent comment contains all its child comments.
+- child comments should have a pointer to the possible reply comment by default is the parent comment.
 
 **Functionality**
 
