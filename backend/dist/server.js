@@ -23,7 +23,7 @@ const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     mongoose_1.default.connect(env_1.default.DB_URL).then(() => {
         console.log('Connected to database');
         app_1.default.listen(PORT, () => {
-            console.log(`Server started on port ${PORT}`);
+            console.log(`Server started on port ${PORT} in ${env_1.default.NODE_ENV}`);
         });
     }).catch(console.error);
 });

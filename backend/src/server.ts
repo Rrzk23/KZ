@@ -11,7 +11,8 @@ export const startServer = async (): Promise<void>=> {
   mongoose.connect(env.DB_URL!).then( () => {
     console.log('Connected to database');
     app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
+      
+      console.log(`Server started on port ${PORT} in ${env.NODE_ENV}`);
     });
 
   }).catch(console.error);
