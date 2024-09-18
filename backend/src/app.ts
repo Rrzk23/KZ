@@ -6,7 +6,7 @@ import { isHttpError } from 'http-errors';
 import {sessionMiddleware} from './middlewares/session';
 import adminRoutes from './routes/adminRoute';
 import projectRoutes from './routes/projectRoute';
-import { requireAuth } from './middlewares/auth';
+
 
 
 const app = express();
@@ -22,8 +22,9 @@ app.use(cors({
 
 app.use(morgan('dev'));
 
+app.use('/api/projects', projectRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/projects', requireAuth, projectRoutes);
+
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

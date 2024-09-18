@@ -38,11 +38,7 @@ const createProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
 });
 exports.createProject = createProject;
 const getAllProjects = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authenticatedAdminId = req.session.adminId;
     try {
-        if (!authenticatedAdminId) {
-            throw (0, http_errors_1.default)(401, 'User not authenticated');
-        }
         const projects = yield projectModel_1.default.find().exec();
         res.status(200).json(projects);
     }

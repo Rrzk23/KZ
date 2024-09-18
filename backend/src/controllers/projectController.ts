@@ -32,11 +32,9 @@ export const createProject : RequestHandler<unknown, unknown, CreateProjectBody,
 };
 
 export const getAllProjects : RequestHandler = async (req, res, next) => {
-    const authenticatedAdminId = req.session.adminId;
+    
     try {
-        if (!authenticatedAdminId) {
-            throw createHttpError(401, 'User not authenticated');
-        }
+
         const projects = await Project.find().exec();
         res.status(200).json(projects);
     } catch (error) {

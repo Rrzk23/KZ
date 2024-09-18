@@ -31,4 +31,5 @@ router.get('/', auth_1.requireAuth, adminController.getAuthAdmin);
 router.post('/login', adminController.adminLogin); // Add POST route for filter
 router.post('/logout', adminController.adminLogout);
 router.post('/signup', adminController.adminSignUp);
+router.get('/imagekit', auth_1.requireAuth, adminController.adminImagekit);
 exports.default = router;
