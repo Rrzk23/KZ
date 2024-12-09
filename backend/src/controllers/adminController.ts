@@ -1,8 +1,7 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import Admin from '../models/adminModel';
-import ImageKit from 'imagekit';
-import env from '../utils/env';
+
 import bcrypt from 'bcrypt';
 
 interface AdminSignUp{
@@ -34,7 +33,9 @@ export const adminSignUp : RequestHandler<unknown, unknown, AdminSignUp, unknown
         res.status(201).json(newadmin);
 
     } catch (err) {
+        console.log(err)
         next(err);
+
     }
 }
 
@@ -86,16 +87,5 @@ export const adminLogout : RequestHandler =  (req, res, next) => {
         res.status(200).json({ message: 'Logged out' });
       }
     });
-}
-
-const imagekit = new ImageKit({
-  urlEndpoint: 'https://ik.imagekit.io/8rwehsppf/KZ',
-  publicKey: 'public_9RihJvmeroH9Gc8zBNZRFHhPMbA=',
-  privateKey: env.IMAGEKIT_PRIVATE_KEY,
-});
-
-export const adminImagekit : RequestHandler = (req, res) => {
-  const result = imagekit.getAuthenticationParameters();
-  res.send(result);
 }
 

@@ -2,15 +2,23 @@ import { Project } from "../models/Project";
 import { fetchData } from "./fetchData";
 
 export async function getAllProjects(): Promise<Project[]> {
-    const response = await fetchData('api/projects/getAll', {method: 'GET'});
-    const data = await response.json() as Project[];
-    return data;
-}
+    const response = await fetchData('api/projects/getAll', { method: 'GET' });
+    const rawData = await response.json();
+  
+    
+    const projectsWithImages: Project[] = rawData.map((project: any) => ({
+      ...project,
+      images: project.image ? project.image.split(',') : [], // Convert image string to images array
+    }));
+    console.log(projectsWithImages)
+    return projectsWithImages;
+  }
 export interface ProjectInput {
     title: string;
     text: string;
     image: string;
     demoUrl: string;
+    video: string;
 }
 
 export async function createProject(project: ProjectInput): Promise<Project> {

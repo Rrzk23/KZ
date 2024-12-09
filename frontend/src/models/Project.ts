@@ -3,8 +3,9 @@ export interface Project {
     _id: string;
     title: string;
     text: string;
-    image: string;
+    images: string[];
     demoUrl: string;
+    video: string;
     createdAt: string;
     updatedAt: string;
   }

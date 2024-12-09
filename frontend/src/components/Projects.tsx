@@ -1,112 +1,126 @@
-import React, { useEffect } from 'react'
-import { Project } from '../models/Project'
+import React, { useEffect } from 'react';
+import { Project } from '../models/Project';
 import * as projects_api from '../network/projects_api';
-import { Col, Row, Spinner } from "react-bootstrap";
-import { Alert, Button } from "@mui/material";
+import { Spinner } from "react-bootstrap";
+import { Alert, Box, Button, Typography, useTheme, Grid } from "@mui/material";
 import ProjectCard from './ProjectCard';
-import styles from '../styles/Projects.module.css';
 import AddEditProjectModal from './AddEditProjectModal';
+import { useAppContext } from '../context/Context';
 
 const Projects = () => {
-  // Fetch projects from API or local storage and display them in a grid or list view.
-  const [projects, setProjects] = React.useState<Project[]|null>(null);
+  const [projects, setProjects] = React.useState<Project[] | null>(null);
   const [isProjectsloading, setIsProjectsloading] = React.useState(true);
   const [showProjectsLoadingError, setShowProjectsLoadingError] = React.useState<boolean>(false);
-  const [projectToEdit, setProjectToEdit] = React.useState<Project|null>(null);
+  const [projectToEdit, setProjectToEdit] = React.useState<Project | null>(null);
   const [showAddProjectModal, setShowAddProjectModal] = React.useState<boolean>(false);
   const [showEditProjectModal, setShowEditProjectModal] = React.useState<boolean>(false);
+  const theme = useTheme();
 
-
+  const {admin, isLoggedIn} = useAppContext();
   const onEditProjectClicked = (project: Project) => {
-    try {
-      setProjectToEdit(project);
-      setShowEditProjectModal(true);
-      
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
+    setProjectToEdit(project);
+    setShowEditProjectModal(true);
   };
+
   const onDeleteProjectClicked = async (projectToDelete: Project) => {
-    if (!projects) {
-      throw new Error('Projects are not available');
-    }
+    if (!projects) return;
     try {
       await projects_api.deleteProject(projectToDelete._id);
-      setProjects(projects.filter((project: Project) => project._id!== projectToDelete._id));
+      setProjects(projects.filter((project) => project._id !== projectToDelete._id));
     } catch (error) {
       console.error(error);
       alert(error);
     }
   };
-  const onNoteClicked = () => {
-  };
+
+  const onNoteClicked = () => {};
+
   useEffect(() => {
-    async function fetchProjects() : Promise<void> {
+    const fetchProjects = async () => {
       try {
         const fetchedProjects = await projects_api.getAllProjects();
+        console.log(fetchedProjects)
         setProjects(fetchedProjects);
         setShowProjectsLoadingError(false);
-      }
-      catch (error) {
+      } catch (error) {
         console.error('Error fetching projects:', error);
         setShowProjectsLoadingError(true);
-      }  // Fetch projects on component mount and on every update of projects state.
-      finally{
+      } finally {
         setIsProjectsloading(false);
       }
-    }
-    void fetchProjects();
+    };
+    fetchProjects();
   }, []);
-  
+
   return (
-    <div>
-      {isProjectsloading &&
-        <Spinner 
-        animation="border" 
-        variant='primary'
-        role="status"
-        aria-hidden="true"/>
-      }
-      {showProjectsLoadingError && 
-        <Alert variant="outlined" severity="error" >
-          Error fetching prices, please try again later!
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: theme.palette.background.paper,
+      }}
+    >
+      <Typography variant="h4" sx={{ textAlign: 'center', mb: 4 }}>
+        Projects
+      </Typography>
+      {isProjectsloading && (
+        <Spinner animation="border" variant="primary" role="status" aria-hidden="true" />
+      )}
+      {showProjectsLoadingError && (
+        <Alert variant="outlined" severity="error">
+          Error fetching projects, please try again later!
         </Alert>
-      }
-      { projects &&!isProjectsloading &&!showProjectsLoadingError &&
-        <Row xs={1} md={2} lg={3} className={`g-4 ${styles.projectsBox}`}>
-          {projects.map((project: Project) => (
-            <Col className={`${styles.projectCard}`} key={project._id} >
+      )}
+      {projects && !isProjectsloading && !showProjectsLoadingError && (
+        <Grid container spacing={2} sx={{ padding: 2 }}>
+          {projects.map((project) => (
+            <Grid item xs={12} sm={6} md={4} lg={4} key={project._id}>
               <ProjectCard
-                project={project} 
-                key ={project._id} 
-                //className={styles.priceNote}
+                project={project}
                 onEditNoteClicked={onEditProjectClicked}
                 onNoteClicked={onNoteClicked}
-                onDeleteNoteClicked={onDeleteProjectClicked}/>
-            </Col>
-          
-        ))}
-        </Row>
-      }
-      <Button variant="contained" color="primary" onClick={() => {
-        setShowAddProjectModal(true);
-      }}>Add New Project</Button>
+                onDeleteNoteClicked={onDeleteProjectClicked}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setShowAddProjectModal(true)}
+        disabled={!isLoggedIn}
+      >
+        Add New Project
+      </Button>
 
       <AddEditProjectModal
         show={showAddProjectModal}
         onHide={() => setShowAddProjectModal(false)}
         onSaved={(newProject) => {
-          if (projects){
-          setProjects([...projects, newProject]);
-          setShowAddProjectModal(false);
+          if (projects) {
+            setProjects([...projects, newProject]);
+            setShowAddProjectModal(false);
           }
         }}
       />
+      {projectToEdit && showEditProjectModal && projects && (
+        <AddEditProjectModal
+          show={showEditProjectModal}
+          onHide={() => setShowEditProjectModal(false)}
+          onSaved={(updatedProject) => {
+            const updatedProjects = projects.map((existingProject) =>
+              existingProject._id === updatedProject._id ? updatedProject : existingProject
+            );
+            setProjects(updatedProjects);
+            setShowEditProjectModal(false);
+          }}
+          projectToEdit={projectToEdit}
+        />
+      )}
+    </Box>
+  );
+};
 
-
-    </div>
-  )
-}
-
-export default Projects
+export default Projects;

@@ -9,10 +9,11 @@ interface CreateProjectBody {
     image?: string,
     text: string,
     demoUrl?: string,
+    video?: string
 }
 
 export const createProject : RequestHandler<unknown, unknown, CreateProjectBody, unknown> = async (req, res, next) => {
-    const { title, image, text, demoUrl} = req.body;
+    const { title, image, text, demoUrl, video} = req.body;
     const authenticatedAdminId = req.session.adminId;
     try {
         if (!authenticatedAdminId) {
@@ -24,7 +25,7 @@ export const createProject : RequestHandler<unknown, unknown, CreateProjectBody,
         if (!text) {
             throw createHttpError(400, 'Text is required');
         }
-        const project = await Project.create({title, image, text, demoUrl});
+        const project = await Project.create({title, image, text, demoUrl, video});
         res.status(201).json(project);
     } catch (error) {
         next(error);
@@ -72,6 +73,7 @@ export const getProject : RequestHandler = async (req, res, next) => {
     image?: string;
     text?: string;
     demoUrl?: string;
+    video?: string;
   }
   export const updateProject : RequestHandler<UpdateProjectParam, unknown, UpdateProjectBody, unknown> = async (req, res, next) => {
     const newTitle = req.body.title;
@@ -80,6 +82,7 @@ export const getProject : RequestHandler = async (req, res, next) => {
     const newDemoUrl = req.body.demoUrl;
     const authenticatedAdminId = req.session.adminId;
     const projectId = req.params.projectId;
+    const newVideo = req.body.video;
     try {
       if (!authenticatedAdminId) {
         throw createHttpError(401, 'User not authenticated');
@@ -98,7 +101,7 @@ export const getProject : RequestHandler = async (req, res, next) => {
       if (!project) {
         throw createHttpError(404, 'Project not found');
       }
-      Object.assign(project, { title : newTitle, text: newText, image: newImage, demoUrl: newDemoUrl });
+      Object.assign(project, { title : newTitle, text: newText, image: newImage, demoUrl: newDemoUrl, video: newVideo });
       /*if (!price.userId.equals(authenticatedUserId)) {
         throw createHttpError(401, 'User not authorized');
       }*/

@@ -10,6 +10,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const http_errors_1 = require("http-errors");
 const session_1 = require("./middlewares/session");
 const adminRoute_1 = __importDefault(require("./routes/adminRoute"));
+const utilRoute_1 = __importDefault(require("./routes/utilRoute"));
 const projectRoute_1 = __importDefault(require("./routes/projectRoute"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -20,7 +21,8 @@ app.use((0, cors_1.default)({
 }));
 app.use((0, morgan_1.default)('dev'));
 app.use('/api/projects', projectRoute_1.default);
-app.use('/api/admin', adminRoute_1.default);
+app.use('/api/auth', adminRoute_1.default);
+app.use('/api/util', utilRoute_1.default);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error, req, res, next) => {
     let errorMessage = 'an unknown error occurred';

@@ -1,32 +1,29 @@
 
-import style from './styles/App.module.css'
-import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
-import AboutMe from './components/Skills'
-import Projects from './components/Projects'
-import MileStone from './components/MileStone'
-import ContactMe from './components/ContactMe'
-import { Admin } from './models/Admin'
-import Skills from './components/Skills'
-import Project2 from './components/Project2'
-import { motion } from 'framer-motion';
-
+import { CssBaseline} from '@mui/material';
+import { ProviderWithContext } from './context/Context';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
 
-  //const [admin, setAdmin] = useState<Admin| null>(null);
-
   return (
-    <div className={style.container}>
-      
-      <Navbar/>
-      <HeroSection/>
-      <Skills/>
-      <Projects/>
-      <ContactMe/>
-
-    </div>
-  )
+    <BrowserRouter>
+      <ProviderWithContext>
+        <CssBaseline />
+        <Routes>
+            <Route
+              path = '/'
+              element={<MainPage/>}
+            />
+            <Route
+              path = 'login'
+              element={<LoginPage/>}
+              />
+        </Routes>
+      </ProviderWithContext>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

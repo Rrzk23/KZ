@@ -24,11 +24,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const adminController = __importStar(require("../controllers/adminController"));
 const auth_1 = require("../middlewares/auth");
+const utilController = __importStar(require("../controllers/utilController"));
 const router = (0, express_1.Router)();
-router.get('/', auth_1.requireAuth, adminController.getAuthAdmin);
-router.post('/login', adminController.adminLogin); // Add POST route for filter
-router.post('/logout', adminController.adminLogout);
-router.post('/signup', adminController.adminSignUp);
+router.get('/imagekit', utilController.adminImagekit);
+router.get('/', auth_1.requireAuth, utilController.adminImagekit);
+router.post('/sendContactEmail', utilController.sendContactEmail);
 exports.default = router;

@@ -12,11 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminImagekit = exports.adminLogout = exports.getAuthAdmin = exports.adminLogin = exports.adminSignUp = void 0;
+exports.adminLogout = exports.getAuthAdmin = exports.adminLogin = exports.adminSignUp = void 0;
 const http_errors_1 = __importDefault(require("http-errors"));
 const adminModel_1 = __importDefault(require("../models/adminModel"));
-const imagekit_1 = __importDefault(require("imagekit"));
-const env_1 = __importDefault(require("../utils/env"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const adminSignUp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { adminName } = req.body;
@@ -37,6 +35,7 @@ const adminSignUp = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         res.status(201).json(newadmin);
     }
     catch (err) {
+        console.log(err);
         next(err);
     }
 });
@@ -91,13 +90,3 @@ const adminLogout = (req, res, next) => {
     });
 };
 exports.adminLogout = adminLogout;
-const imagekit = new imagekit_1.default({
-    urlEndpoint: 'https://ik.imagekit.io/8rwehsppf/KZ',
-    publicKey: 'public_9RihJvmeroH9Gc8zBNZRFHhPMbA=',
-    privateKey: env_1.default.IMAGEKIT_PRIVATE_KEY,
-});
-const adminImagekit = (req, res) => {
-    const result = imagekit.getAuthenticationParameters();
-    res.send(result);
-};
-exports.adminImagekit = adminImagekit;
