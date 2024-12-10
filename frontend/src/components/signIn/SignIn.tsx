@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
@@ -66,7 +66,7 @@ export default function SignIn(props: SignInProps) {
   const [emailErrorMessage, ] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+  const [, setOpen] = React.useState(false);
 
   const {register, handleSubmit, reset, formState: {isSubmitting}} = useForm<LoginCredentials>();
 
@@ -74,9 +74,7 @@ export default function SignIn(props: SignInProps) {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+
 
   const onSubmit = async (loginForm : LoginCredentials) => {
     console.log(loginForm);

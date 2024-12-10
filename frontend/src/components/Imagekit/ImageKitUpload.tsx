@@ -1,4 +1,3 @@
-import React from "react"
 import {IKUpload } from "imagekitio-react";
 import { ImageKitContext } from "./ImageKitContext";
 

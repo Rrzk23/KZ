@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { requireAuth } from '../middlewares/auth';
+import { emailRateLimiter } from '../middlewares/limiter';
 import * as utilController from '../controllers/utilController';
 const router = Router();
 

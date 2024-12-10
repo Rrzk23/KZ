@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import  { useRef, useState } from 'react';
 import { Project } from '../models/Project';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -21,7 +21,7 @@ interface ProjectCardProps {
 const ProjectCard = (props: ProjectCardProps) => {
   const { title, text, images, demoUrl, video } = props.project;
   const theme = useTheme();
-  const { admin, isLoggedIn } = useAppContext();
+  const { isLoggedIn } = useAppContext();
 
   // State for cycling through images and managing loading
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -16,7 +16,7 @@ const Projects = () => {
   const [showEditProjectModal, setShowEditProjectModal] = React.useState<boolean>(false);
   const theme = useTheme();
 
-  const {admin, isLoggedIn} = useAppContext();
+  const { isLoggedIn} = useAppContext();
   const onEditProjectClicked = (project: Project) => {
     setProjectToEdit(project);
     setShowEditProjectModal(true);

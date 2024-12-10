@@ -1,6 +1,6 @@
 import React from 'react'
-import { IKContext, IKImage } from 'imagekitio-react';
-import { urlEndpoint, publicKey, authenticator } from '../../network/imageKitApi';
+import {  IKImage } from 'imagekitio-react';
+import { urlEndpoint, } from '../../network/imageKitApi';
 
 interface ImageKitProps {
   image: string;
