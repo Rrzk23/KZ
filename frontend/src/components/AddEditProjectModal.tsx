@@ -21,7 +21,7 @@ const AddEditProjectModal: React.FC<AddEditProjectModalProps> = ({
   onSaved,
   projectToEdit
 }) => {
-  const { control, handleSubmit, reset, formState: { errors, isSubmitting }, setValue } = useForm<ProjectInput>({
+  const { control, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ProjectInput>({
     defaultValues: projectToEdit || {
       title: '',
       image: '',
@@ -31,7 +31,13 @@ const AddEditProjectModal: React.FC<AddEditProjectModalProps> = ({
     }
   });
 
-  const [images, setImages] = useState<string[]>(projectToEdit?.image.split(",") || []);
+  const [images, setImages] = useState<string[]>(
+    typeof projectToEdit?.image === "string" && projectToEdit?.image
+      ? projectToEdit.image.split(",")
+      : []
+  );
+  
+  
 
   const handleAddImage = (fileUrl: string) => {
     setImages((prevImages) => [...prevImages, fileUrl]);
