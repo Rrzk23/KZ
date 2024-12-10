@@ -17,7 +17,7 @@ const http_errors_1 = __importDefault(require("http-errors"));
 const projectModel_1 = __importDefault(require("../models/projectModel"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const createProject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, image, text, demoUrl } = req.body;
+    const { title, image, text, demoUrl, video } = req.body;
     const authenticatedAdminId = req.session.adminId;
     try {
         if (!authenticatedAdminId) {
@@ -29,7 +29,7 @@ const createProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         if (!text) {
             throw (0, http_errors_1.default)(400, 'Text is required');
         }
-        const project = yield projectModel_1.default.create({ title, image, text, demoUrl });
+        const project = yield projectModel_1.default.create({ title, image, text, demoUrl, video });
         res.status(201).json(project);
     }
     catch (error) {
@@ -38,11 +38,7 @@ const createProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
 });
 exports.createProject = createProject;
 const getAllProjects = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authenticatedAdminId = req.session.adminId;
     try {
-        if (!authenticatedAdminId) {
-            throw (0, http_errors_1.default)(401, 'User not authenticated');
-        }
         const projects = yield projectModel_1.default.find().exec();
         res.status(200).json(projects);
     }
@@ -79,6 +75,7 @@ const updateProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     const newDemoUrl = req.body.demoUrl;
     const authenticatedAdminId = req.session.adminId;
     const projectId = req.params.projectId;
+    const newVideo = req.body.video;
     try {
         if (!authenticatedAdminId) {
             throw (0, http_errors_1.default)(401, 'User not authenticated');
@@ -97,7 +94,7 @@ const updateProject = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         if (!project) {
             throw (0, http_errors_1.default)(404, 'Project not found');
         }
-        Object.assign(project, { title: newTitle, text: newText, image: newImage, demoUrl: newDemoUrl });
+        Object.assign(project, { title: newTitle, text: newText, image: newImage, demoUrl: newDemoUrl, video: newVideo });
         /*if (!price.userId.equals(authenticatedUserId)) {
           throw createHttpError(401, 'User not authorized');
         }*/

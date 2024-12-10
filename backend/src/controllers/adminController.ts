@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 import Admin from '../models/adminModel';
+
 import bcrypt from 'bcrypt';
 
 interface AdminSignUp{
@@ -32,7 +33,9 @@ export const adminSignUp : RequestHandler<unknown, unknown, AdminSignUp, unknown
         res.status(201).json(newadmin);
 
     } catch (err) {
+        console.log(err)
         next(err);
+
     }
 }
 

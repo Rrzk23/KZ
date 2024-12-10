@@ -6,5 +6,6 @@ const projectSchema = new mongoose_1.Schema({
     image: { type: 'string' },
     text: { type: 'string', required: true },
     demoUrl: { type: 'string' },
+    video: { type: 'string' },
 }, { timestamps: true });
 exports.default = (0, mongoose_1.model)('Project', projectSchema);

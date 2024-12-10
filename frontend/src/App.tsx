@@ -1,26 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import style from './styles/App.module.css'
-import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
-import AboutMe from './components/AboutMe'
-import Projects from './components/Projects'
-import MileStone from './components/MileStone'
-import ContactMe from './components/ContactMe'
+
+import { CssBaseline} from '@mui/material';
+import { ProviderWithContext } from './context/Context';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
 
   return (
-    <div className={style.container}>
-      <Navbar/>
-      <HeroSection/>
-      <AboutMe/>
-      <Projects/>
-      <MileStone/>
-      <ContactMe/>
-    </div>
-  )
+    <BrowserRouter>
+      <ProviderWithContext>
+        <CssBaseline />
+        <Routes>
+            <Route
+              path = '/'
+              element={<MainPage/>}
+            />
+            <Route
+              path = 'login'
+              element={<LoginPage/>}
+              />
+        </Routes>
+      </ProviderWithContext>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

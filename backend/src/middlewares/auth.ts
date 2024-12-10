@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import createHttpError from 'http-errors';
 
 
-export const requireAuth : RequestHandler = (req, res, next) => {
+export const requireAuth : RequestHandler<unknown, unknown, unknown, unknown> = (req, res, next) => {
   if (req.session.adminId) {
     next();
   } else {

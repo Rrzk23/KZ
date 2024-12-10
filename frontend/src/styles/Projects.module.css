@@ -1,0 +1,20 @@
+.projectsBox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: space-around;
+    
+    width: 100%;
+    background-color: blue;
+}
+
+.projectCard {
+   
+    margin: 10px;
+    background-color: yellow;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out;
+}

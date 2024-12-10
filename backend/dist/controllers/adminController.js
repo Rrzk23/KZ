@@ -35,6 +35,7 @@ const adminSignUp = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         res.status(201).json(newadmin);
     }
     catch (err) {
+        console.log(err);
         next(err);
     }
 });

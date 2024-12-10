@@ -25,10 +25,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const projectController = __importStar(require("../controllers/projectController"));
+const auth_1 = require("../middlewares/auth");
 const router = (0, express_1.Router)();
 router.get('/getAll', projectController.getAllProjects);
-router.get('/get/:projectId', projectController.getProject);
-router.post('/create', projectController.createProject);
-router.patch('/update/:projectId', projectController.updateProject);
-router.delete('/delete/:projectId', projectController.deleteProject);
+router.get('/get/:projectId', auth_1.requireAuth, projectController.getProject);
+router.post('/create', auth_1.requireAuth, projectController.createProject);
+router.patch('/update/:projectId', auth_1.requireAuth, projectController.updateProject);
+router.delete('/delete/:projectId', auth_1.requireAuth, projectController.deleteProject);
 exports.default = router;

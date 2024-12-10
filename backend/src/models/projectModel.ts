@@ -5,6 +5,7 @@ const projectSchema = new Schema({
   image: {type: 'string'},
   text: {type: 'string', required: true},
   demoUrl: {type: 'string'},
+  video: {type: 'string'},
 }, { timestamps: true });
 
 type Project = InferSchemaType<typeof projectSchema>;
