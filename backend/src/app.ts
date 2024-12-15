@@ -15,11 +15,21 @@ app.use(express.json());
 
 app.use(sessionMiddleware);
 
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-}
-));
+const corsOptions =
+  process.env.NODE_ENV === 'production'
+    ? {
+        origin: ['https://kezhu.onrender.com'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true,
+      }
+    : {
+        origin: ['http://localhost:3000'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true,
+      };
+
+app.use(cors(corsOptions));
+
 
 app.use(morgan('dev'));
 

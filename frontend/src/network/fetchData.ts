@@ -1,9 +1,10 @@
 import { BadRequestHttpError, ConflicHttptError, NotFoundHttpError, UnautorizedHttpError } from "../errors/http-errors";
 
 export async function fetchData(input: RequestInfo, init?: RequestInit){
- 
+    const API_URL = process.env.VITE_API_URL || "https://your-backend-url.onrender.com";
+
     try {
-        const response = await fetch(input,init);
+        const response = await fetch(API_URL + '/'+input,init);
         
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     if(response.ok) {
