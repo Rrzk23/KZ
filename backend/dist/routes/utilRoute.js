@@ -25,9 +25,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_1 = require("../middlewares/auth");
+const limiter_1 = require("../middlewares/limiter");
 const utilController = __importStar(require("../controllers/utilController"));
 const router = (0, express_1.Router)();
 router.get('/imagekit', utilController.adminImagekit);
 router.get('/', auth_1.requireAuth, utilController.adminImagekit);
-router.post('/sendContactEmail', utilController.sendContactEmail);
+router.post('/sendContactEmail', limiter_1.emailRateLimiter, utilController.sendContactEmail);
 exports.default = router;

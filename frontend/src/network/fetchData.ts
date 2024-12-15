@@ -1,10 +1,16 @@
 import { BadRequestHttpError, ConflicHttptError, NotFoundHttpError, UnautorizedHttpError } from "../errors/http-errors";
 
 export async function fetchData(input: RequestInfo, init?: RequestInit){
-    const API_URL = process.env.VITE_API_URL || "https://kz-lwp4.onrender.com";
+    const baseUrl = process.env.NODE_ENV === 'production' ? "https://kz-lwp4.onrender.com" : ""
+
+  // Combine base URL with the input
+  const url = 
+    `${baseUrl}/${input}` // Prepend base URL if input is a relative path
+
+
 
     try {
-        const response = await fetch(API_URL + '/'+input,init);
+        const response = await fetch(url, init);
         
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     if(response.status < 400) {
