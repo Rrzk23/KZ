@@ -1,0 +1,13 @@
+{
+    "routes": [
+      {
+        "source": "/api/*",
+        "destination": "/api/*"
+      },
+      {
+        "source": "/*",
+        "destination": "/index.html"
+      }
+    ]
+  }
+  
