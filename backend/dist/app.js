@@ -17,7 +17,7 @@ app.use(express_1.default.json());
 app.use(session_1.sessionMiddleware);
 const corsOptions = process.env.NODE_ENV === 'production'
     ? {
-        origin: ['https://kezhu.onrender.com'],
+        origin: ['https://kezhu.onrender.com/'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     }

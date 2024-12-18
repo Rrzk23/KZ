@@ -18,7 +18,7 @@ app.use(sessionMiddleware);
 const corsOptions =
   process.env.NODE_ENV === 'production'
     ? {
-        origin: ['https://kezhu.onrender.com'],
+        origin: ['https://kezhu.onrender.com', 'http://localhost:3000'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
       }
