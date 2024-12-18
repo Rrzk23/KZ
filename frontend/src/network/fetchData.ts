@@ -2,7 +2,7 @@ import { BadRequestHttpError, ConflicHttptError, NotFoundHttpError, UnautorizedH
 
 export async function fetchData(input: RequestInfo, init?: RequestInit){
     const baseUrl = process.env.NODE_ENV === 'production' ? "https://kz-lwp4.onrender.com" : ""
-
+    console.log(`Fetching data from ${baseUrl}`);
   // Combine base URL with the input
   const url = 
     `${baseUrl}/${input}` // Prepend base URL if input is a relative path
@@ -10,6 +10,7 @@ export async function fetchData(input: RequestInfo, init?: RequestInit){
 
 
     try {
+        console.log(`Fetching data from ${url}`);
         const response = await fetch(url, init);
         
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
