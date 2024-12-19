@@ -1,13 +1,5 @@
 {
-    "routes": [
-      {
-        "source": "/api/*",
-        "destination": "/api/*"
-      },
-      {
-        "source": "/*",
-        "destination": "/index.html"
-      }
-    ]
+  "routes": {
+    "/**": "index.html"
   }
-  
+}
