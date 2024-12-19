@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Project } from '../models/Project';
 import * as projects_api from '../network/projects_api';
 import { Spinner } from "react-bootstrap";
-import { Alert, Box, Button, Typography, useTheme, Grid } from "@mui/material";
+import { Alert, Box, Button, Typography, useTheme, Grid, Skeleton, Card, CardContent, CardActions, CardMedia } from "@mui/material";
 import ProjectCard from './ProjectCard';
 import AddEditProjectModal from './AddEditProjectModal';
 import { useAppContext } from '../context/Context';
@@ -16,7 +16,8 @@ const Projects = () => {
   const [showEditProjectModal, setShowEditProjectModal] = React.useState<boolean>(false);
   const theme = useTheme();
 
-  const { isLoggedIn} = useAppContext();
+  const { isLoggedIn } = useAppContext();
+
   const onEditProjectClicked = (project: Project) => {
     setProjectToEdit(project);
     setShowEditProjectModal(true);
@@ -72,20 +73,54 @@ const Projects = () => {
           Error fetching projects, please try again later!
         </Alert>
       )}
-      {projects && !isProjectsloading && !showProjectsLoadingError && (
-        <Grid container spacing={2} sx={{ padding: 2 }}>
-          {projects.map((project) => (
-            <Grid item xs={12} sm={6} md={4} lg={4} key={project._id}>
-              <ProjectCard
-                project={project}
-                onEditNoteClicked={onEditProjectClicked}
-                onNoteClicked={onNoteClicked}
-                onDeleteNoteClicked={onDeleteProjectClicked}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      )}
+      <Grid container spacing={2} sx={{ padding: 2 }}>
+        {isProjectsloading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
+                <Card
+                  elevation={3}
+                  sx={{
+                    margin: 1,
+                    backgroundColor: theme.palette.background.paper,
+                    padding: 2,
+                    borderRadius: 1,
+                    boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)',
+                  }}
+                >
+                  <CardMedia
+                    sx={{
+                      height: 200,
+                      width: '100%',
+                      borderRadius: 1,
+                      overflow: 'hidden',
+                      mb: 2,
+                    }}
+                  >
+                    <Skeleton variant="rectangular" width="100%" height={200} />
+                  </CardMedia>
+                  <CardContent>
+                    <Skeleton variant="text" width="80%" height={30} />
+                    <Skeleton variant="text" width="60%" height={20} />
+                  </CardContent>
+                  <CardActions>
+                    <Skeleton variant="rectangular" width={100} height={30} />
+                    <Skeleton variant="rectangular" width={100} height={30} />
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))
+          : projects &&
+            projects.map((project) => (
+              <Grid item xs={12} sm={6} md={4} lg={4} key={project._id}>
+                <ProjectCard
+                  project={project}
+                  onEditNoteClicked={onEditProjectClicked}
+                  onNoteClicked={onNoteClicked}
+                  onDeleteNoteClicked={onDeleteProjectClicked}
+                />
+              </Grid>
+            ))}
+      </Grid>
       <Button
         variant="contained"
         color="primary"
@@ -124,3 +159,4 @@ const Projects = () => {
 };
 
 export default Projects;
+

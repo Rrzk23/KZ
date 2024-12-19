@@ -20,6 +20,7 @@ function App() {
               path = '/login'
               element={<LoginPage/>}
               />
+            <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
       </ProviderWithContext>
     </BrowserRouter>
