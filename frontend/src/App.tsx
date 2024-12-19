@@ -1,13 +1,13 @@
 import { CssBaseline } from '@mui/material';
 import { ProviderWithContext } from './context/Context';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter , Route, Routes } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage'; 
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter >
       <ProviderWithContext>
         <CssBaseline />
         <Routes>
@@ -16,7 +16,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </ProviderWithContext>
-    </BrowserRouter>
+    </HashRouter >
   );
 }
 
