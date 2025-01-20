@@ -12,7 +12,7 @@ import dividendRoutes from './routes/dividendRoute';
 
 const app = express();
 app.use(express.json());
-
+app.set('trust proxy', 1);
 const corsOptions =
   process.env.NODE_ENV === 'production'
     ? {
