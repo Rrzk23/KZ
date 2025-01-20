@@ -10,7 +10,8 @@ const validateEnv = () => {
     //RAPIDAPI_KEY: str(),
     SESSION_SECRET: str({default: 'mock_session_secret'}),
     NODE_ENV: str({choices: ['development', 'production','test','CI']}),
-    IMAGEKIT_PRIVATE_KEY: str({default:'abc'})
+    IMAGEKIT_PRIVATE_KEY: str({default:'abc'}),
+    ALPHA_VANTAGE_API_KEY: str({default:'abc'})
     //REDIS_URL: str()
   });
 };

@@ -10,6 +10,10 @@ import { Slide, useScrollTrigger, useMediaQuery, Drawer, List, ListItem, ListIte
 import { useAppContext } from '../context/Context';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { logoutUser } from '../network/user_api';
+import { useNavigate } from 'react-router-dom';
 
 const buttons = ["Home", "Skills", "Projects", "Contact Me"];
 
@@ -27,7 +31,8 @@ function ElevationScroll(props: ElevationScrollProps) {
 }
 
 const Navbar: React.FC = () => {
-  const { mode, toggleTheme } = useAppContext();
+  const { mode, isLoggedIn, logout,toggleTheme } = useAppContext();
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Responsive breakpoints
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -35,6 +40,10 @@ const Navbar: React.FC = () => {
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
+  const handleLog = () => {
+    isLoggedIn? logout() : navigate('login');
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -102,6 +111,10 @@ const Navbar: React.FC = () => {
             <IconButton onClick={toggleTheme} color="inherit" sx={{ ml: 2 }}>
               {mode === 'dark' ? <Brightness4 /> : <Brightness7 />}
             </IconButton>
+            <IconButton onClick={handleLog} color="inherit" sx={{ ml: 2 }}>
+              {isLoggedIn ? <LogoutIcon />  : <LoginIcon />}
+            </IconButton>
+
           </Toolbar>
         </AppBar>
       </ElevationScroll>

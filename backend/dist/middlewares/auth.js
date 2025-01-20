@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.requireAuth = void 0;
 const http_errors_1 = __importDefault(require("http-errors"));
 const requireAuth = (req, res, next) => {
+    console.log('Session Middleware Debug:', req.session);
     if (req.session.adminId) {
         next();
     }

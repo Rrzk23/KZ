@@ -12,25 +12,27 @@ const session_1 = require("./middlewares/session");
 const adminRoute_1 = __importDefault(require("./routes/adminRoute"));
 const utilRoute_1 = __importDefault(require("./routes/utilRoute"));
 const projectRoute_1 = __importDefault(require("./routes/projectRoute"));
+const dividendRoute_1 = __importDefault(require("./routes/dividendRoute"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use(session_1.sessionMiddleware);
 const corsOptions = process.env.NODE_ENV === 'production'
     ? {
-        origin: ['https://kezhu.onrender.com/'],
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        origin: ['https://kezhu.onrender.com', 'http://localhost:3000'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
         credentials: true,
     }
     : {
         origin: ['http://localhost:3000'],
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
         credentials: true,
     };
 app.use((0, cors_1.default)(corsOptions));
+app.use(session_1.sessionMiddleware);
 app.use((0, morgan_1.default)('dev'));
 app.use('/api/projects', projectRoute_1.default);
 app.use('/api/auth', adminRoute_1.default);
 app.use('/api/util', utilRoute_1.default);
+app.use('/api/dividend', dividendRoute_1.default);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error, req, res, next) => {
     let errorMessage = 'an unknown error occurred';
