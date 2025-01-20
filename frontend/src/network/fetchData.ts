@@ -11,7 +11,11 @@ export async function fetchData(input: RequestInfo, init?: RequestInit){
 
     try {
         console.log(`Fetching data from ${url}`);
-        const response = await fetch(url, init);
+        const response = await fetch(url, {
+            ...init,
+            credentials: 'include', 
+        });
+      
         
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     if(response.status < 400) {

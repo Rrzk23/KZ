@@ -58,6 +58,7 @@ export const adminLogin : RequestHandler<unknown, unknown, AdminLoginBody, unkno
         throw createHttpError(401, 'Incorrect password or email');
       }
       req.session.adminId = admin._id;
+      console.log('Session created:', req.session);
       res.status(201).json(admin);
     } catch (error) {
       next(error);

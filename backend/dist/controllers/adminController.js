@@ -59,6 +59,7 @@ const adminLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             throw (0, http_errors_1.default)(401, 'Incorrect password or email');
         }
         req.session.adminId = admin._id;
+        console.log('Session created:', req.session);
         res.status(201).json(admin);
     }
     catch (error) {

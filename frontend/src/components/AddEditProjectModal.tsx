@@ -7,6 +7,7 @@ import { Modal, Box, Typography, TextField, Button, Stack, IconButton } from "@m
 import { ImageKitContext } from "./Imagekit/ImageKitContext";
 import ImageKitUpload from "./Imagekit/ImageKitUpload";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Height } from "@mui/icons-material";
 
 interface AddEditProjectModalProps {
   show: boolean;
@@ -82,7 +83,9 @@ const AddEditProjectModal: React.FC<AddEditProjectModalProps> = ({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: '60%',
+        height:'80%',
+        overflow: 'auto',
         bgcolor: 'background.paper',
         boxShadow: 24,
         p: 4,
@@ -91,7 +94,9 @@ const AddEditProjectModal: React.FC<AddEditProjectModalProps> = ({
         <Typography id="modal-title" variant="h6" component="h2" gutterBottom>
           {projectToEdit ? "Edit Project" : "Add Project"}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+        <Box component="form"
+          
+           onSubmit={handleSubmit(onSubmit, onError)} noValidate>
           <Controller
             name="title"
             control={control}

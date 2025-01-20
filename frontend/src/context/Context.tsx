@@ -1,6 +1,8 @@
 import React, { createContext, useState, useMemo, useContext, ReactNode, useEffect } from 'react';
 import { createTheme, ThemeProvider, CssBaseline, alpha, PaletteMode } from '@mui/material';
 import { Admin } from '../models/Admin';
+import { logoutUser } from '../network/user_api';
+import { useNavigate } from 'react-router-dom';
 
 interface ContextType {
   mode: PaletteMode;
@@ -8,12 +10,13 @@ interface ContextType {
   admin: Admin | null;
   isLoggedIn: boolean;
   setAdmin: (admin: Admin | null) => void;
+  logout: () => void;
 }
 
 const Context = createContext<ContextType | undefined>(undefined);
 
 export const ProviderWithContext: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Load initial mode and admin from localStorage
+  const navigate = useNavigate();
   const getInitialMode = (): PaletteMode => {
     const savedMode = localStorage.getItem('theme');
     return savedMode === 'dark' ? 'dark' : 'light';
@@ -33,19 +36,17 @@ export const ProviderWithContext: React.FC<{ children: ReactNode }> = ({ childre
     const hours = new Date().getHours();
     if (!localStorage.getItem('theme')) {
       if (hours >= 6 && hours < 18) {
-        setMode('light'); // Daytime: Light mode
+        setMode('light');
       } else {
-        setMode('dark'); // Nighttime: Dark mode
+        setMode('dark');
       }
     }
   }, []);
 
-  // Persist theme mode to localStorage
   useEffect(() => {
     localStorage.setItem('theme', mode);
   }, [mode]);
 
-  // Persist admin state to localStorage
   useEffect(() => {
     if (admin) {
       localStorage.setItem('admin', JSON.stringify(admin));
@@ -58,6 +59,14 @@ export const ProviderWithContext: React.FC<{ children: ReactNode }> = ({ childre
 
   const setAdmin = (newAdmin: Admin | null) => {
     setAdminState(newAdmin);
+  };
+
+  const logout = () => {
+    logoutUser().then(() => {
+      setAdmin(null);
+      navigate('/');
+      console.log('logged out');
+    });
   };
 
   const theme = useMemo(
@@ -96,7 +105,7 @@ export const ProviderWithContext: React.FC<{ children: ReactNode }> = ({ childre
   };
 
   return (
-    <Context.Provider value={{ mode, toggleTheme, admin, setAdmin, isLoggedIn }}>
+    <Context.Provider value={{ mode, toggleTheme, admin, setAdmin, isLoggedIn, logout }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}
@@ -112,3 +121,4 @@ export const useAppContext = () => {
   }
   return context;
 };
+
