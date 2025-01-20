@@ -18,6 +18,7 @@ const sessionConfig: SessionConfig = {
         cookie: {
             maxAge: 60 * 60 * 1000, // 1 hour
             secure: true,
+            sameSite: 'none'
         },
         rolling: true,
         store: MongoStore.create({
