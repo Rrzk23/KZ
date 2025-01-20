@@ -12,7 +12,7 @@ import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { logoutUser } from '../network/user_api';
+
 import { useNavigate } from 'react-router-dom';
 
 const buttons = ["Home", "Skills", "Projects", "Contact Me"];

@@ -7,7 +7,7 @@ import { Modal, Box, Typography, TextField, Button, Stack, IconButton } from "@m
 import { ImageKitContext } from "./Imagekit/ImageKitContext";
 import ImageKitUpload from "./Imagekit/ImageKitUpload";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Height } from "@mui/icons-material";
+
 
 interface AddEditProjectModalProps {
   show: boolean;
