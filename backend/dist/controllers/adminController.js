@@ -60,7 +60,16 @@ const adminLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         }
         req.session.adminId = admin._id;
         console.log('Session created:', req.session);
-        res.status(201).json(admin);
+        req.session.save((err) => {
+            if (err) {
+                console.error('Error saving session:', err);
+                next(err);
+            }
+            else {
+                console.log('Session saved successfully:', req.session);
+                res.status(201).json(admin);
+            }
+        });
     }
     catch (error) {
         next(error);
