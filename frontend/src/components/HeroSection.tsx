@@ -110,7 +110,7 @@ const HeroSection: React.FC = () => {
               variant="contained"
               size="large"
               color="primary"
-              href={'https://ik.imagekit.io/8rwehsppf/KZIO/CV%20(10).pdf?updatedAt=1732795889394'}
+              href={'https://ik.imagekit.io/8rwehsppf/KZIO/CV.docx.pdf?updatedAt=1737971358838'}
             >
               <Typography variant="subtitle1">My CV</Typography>
             </Button>

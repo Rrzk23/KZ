@@ -65,6 +65,8 @@ export const adminLogin : RequestHandler<unknown, unknown, AdminLoginBody, unkno
           next(err);
         } else {
           console.log('Session saved successfully:', req.session);
+          console.log("Response headers before sending:", res.getHeaders());
+
           res.status(201).json(admin);
         }
       });
