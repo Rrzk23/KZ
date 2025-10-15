@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, useTheme } from '@mui/material';
+import { Typography, Box, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Code, Storage, Web } from '@mui/icons-material'; // Example icons
 
