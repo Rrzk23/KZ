@@ -67,6 +67,7 @@ const adminLogin = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             }
             else {
                 console.log('Session saved successfully:', req.session);
+                console.log("Response headers before sending:", res.getHeaders());
                 res.status(201).json(admin);
             }
         });

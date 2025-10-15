@@ -14,7 +14,8 @@ const sessionConfig = {
         cookie: {
             maxAge: 60 * 60 * 1000, // 1 hour
             secure: true,
-            sameSite: 'none'
+            sameSite: 'none',
+            httpOnly: true,
         },
         rolling: true,
         store: connect_mongo_1.default.create({
