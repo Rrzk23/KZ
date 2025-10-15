@@ -2,7 +2,7 @@ import React from 'react';
 import { Project } from '../models/Project';
 import * as projects_api from '../network/projects_api';
 import { Spinner } from "react-bootstrap";
-import { Alert, Box, Button, Typography, useTheme, Grid, Skeleton, Card, CardContent, CardActions, CardMedia } from "@mui/material";
+import { Alert, Box, Button, Typography, useTheme } from "@mui/material";
 import ProjectCard from './ProjectCard';
 import AddEditProjectModal from './AddEditProjectModal';
 import { useAppContext } from '../context/Context';
@@ -40,22 +40,6 @@ const Projects = () => {
 
   const onNoteClicked = () => {};
 
-  /*useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const fetchedProjects = await projects_api.getAllProjects();
-        console.log(fetchedProjects)
-        setProjects(fetchedProjects);
-        setShowProjectsLoadingError(false);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-        setShowProjectsLoadingError(true);
-      } finally {
-        setIsProjectsloading(false);
-      }
-    };
-    fetchProjects();
-  }, []);*/
 
   return (
     <Box
@@ -77,54 +61,21 @@ const Projects = () => {
           Error fetching projects, please try again later!
         </Alert>
       )}
-      <Grid container spacing={2} sx={{ padding: 2 }}>
-        {isProjectsloading && !projects
-          ? Array.from({ length: 6 }).map((_, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
-                <Card
-                  elevation={3}
-                  sx={{
-                    margin: 1,
-                    backgroundColor: theme.palette.background.paper,
-                    padding: 2,
-                    borderRadius: 1,
-                    boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.5)',
-                  }}
-                >
-                  <CardMedia
-                    sx={{
-                      height: 200,
-                      width: '100%',
-                      borderRadius: 1,
-                      overflow: 'hidden',
-                      mb: 2,
-                    }}
-                  >
-                    <Skeleton variant="rectangular" width="100%" height={200} />
-                  </CardMedia>
-                  <CardContent>
-                    <Skeleton variant="text" width="80%" height={30} />
-                    <Skeleton variant="text" width="60%" height={20} />
-                  </CardContent>
-                  <CardActions>
-                    <Skeleton variant="rectangular" width={100} height={30} />
-                    <Skeleton variant="rectangular" width={100} height={30} />
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))
-          : projects &&
-            projects.map((project) => (
-              <Grid item xs={12} sm={6} md={4} lg={4} key={project._id}>
-                <ProjectCard
-                  project={project}
-                  onEditNoteClicked={onEditProjectClicked}
-                  onNoteClicked={onNoteClicked}
-                  onDeleteNoteClicked={onDeleteProjectClicked}
-                />
-              </Grid>
-            ))}
-      </Grid>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', mx: -1 }}>
+        {projects?.map((project) => (
+          <Box key={project._id} sx={{ width: { xs: '100%', s: '50%', md: '33.333%' }, px: 1, mb: 2 }}>
+            <ProjectCard
+              project={project}
+              onEditNoteClicked={onEditProjectClicked}
+              onNoteClicked={onNoteClicked}
+              onDeleteNoteClicked={onDeleteProjectClicked}
+            />
+          </Box>
+        ))}
+      </Box>
+    </Box>
+
       <Button
         variant="contained"
         color="primary"
