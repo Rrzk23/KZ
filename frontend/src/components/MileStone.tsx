@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   Chip,
-  Paper,
   useTheme,
   useMediaQuery,
 } from "@mui/material";

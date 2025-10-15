@@ -144,6 +144,7 @@ export default function SignIn(props: SignInProps) {
                 width: '100%',
                 gap: 2,
               }}
+              {...({} as any)}
             >
               <FormControl>
                 <FormLabel htmlFor="adminName">Admin Name</FormLabel>
@@ -171,6 +172,7 @@ export default function SignIn(props: SignInProps) {
                     onClick={handleClickOpen}
                     variant="body2"
                     sx={{ alignSelf: 'baseline' }}
+                    {...({} as any)}
                   >
                     Forgot your password?
                   </Link>

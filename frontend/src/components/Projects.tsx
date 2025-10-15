@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Project } from '../models/Project';
 import * as projects_api from '../network/projects_api';
 import { Spinner } from "react-bootstrap";
@@ -13,8 +13,8 @@ import { defaultProjects } from '../utils/defaultProjects';
 
 const Projects = () => {
   const [projects, setProjects] = React.useState<Project[] | null>(defaultProjects);
-  const [isProjectsloading, setIsProjectsloading] = React.useState(true);
-  const [showProjectsLoadingError, setShowProjectsLoadingError] = React.useState<boolean>(false);
+  const [isProjectsloading, ] = React.useState(true);
+  const [showProjectsLoadingError, ] = React.useState<boolean>(false);
   const [projectToEdit, setProjectToEdit] = React.useState<Project | null>(null);
   const [showAddProjectModal, setShowAddProjectModal] = React.useState<boolean>(false);
   const [showEditProjectModal, setShowEditProjectModal] = React.useState<boolean>(false);
