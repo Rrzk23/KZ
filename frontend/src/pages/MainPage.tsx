@@ -5,6 +5,7 @@ import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import ContactMe from '../components/ContactMe';
 import {Element } from 'react-scroll';
+import MileStone from '../components/MileStone';
 
 const MainPage = () => {
   return (
@@ -15,6 +16,12 @@ const MainPage = () => {
         <Element name="home">
           <section id="home">
             <HeroSection />
+          </section>
+        </Element>
+
+        <Element name="milestone">
+          <section id="milestone">
+            <MileStone />
           </section>
         </Element>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
+import AboutMe from './AboutMe';
 
 const HeroSection: React.FC = () => {
   const theme = useTheme();
@@ -8,7 +9,7 @@ const HeroSection: React.FC = () => {
   const messages = React.useMemo(
     () => [
       "Full-Stack Developer | Passionate about Web & AI",
-      "1+ years experience developing web applications & AI research project",
+      "2+ years experience developing web applications & AI research project",
     ],
     []
   );
@@ -86,20 +87,6 @@ const HeroSection: React.FC = () => {
             gap: 2,
           }}
         >
-          <motion.div
-            initial={{ opacity: 0, x: -1000 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={() => (window.location.href = 'https://contact-url.com')}
-            >
-              <Typography variant="subtitle1">Contact Me</Typography>
-            </Button>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 1000 }}
@@ -115,13 +102,20 @@ const HeroSection: React.FC = () => {
               <Typography variant="subtitle1">My CV</Typography>
             </Button>
           </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 1000 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <AboutMe/>
+          </motion.div>
         </Box>
       </motion.div>
 
       {/* Image Section */}
       <Box
         component="img"
-        src="https://ik.imagekit.io/8rwehsppf/KZIO/cartoon.webp?updatedAt=1732895607730" // Replace with your image URL
+        src="https://ik.imagekit.io/8rwehsppf/web-developer.svg?updatedAt=1760335261194" // Replace with your image URL
         alt="Hero Section Image"
         sx={{
           flex: 1,

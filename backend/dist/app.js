@@ -15,6 +15,7 @@ const projectRoute_1 = __importDefault(require("./routes/projectRoute"));
 const dividendRoute_1 = __importDefault(require("./routes/dividendRoute"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.set('trust proxy', 1);
 const corsOptions = process.env.NODE_ENV === 'production'
     ? {
         origin: ['https://kezhu.onrender.com', 'http://localhost:3000'],

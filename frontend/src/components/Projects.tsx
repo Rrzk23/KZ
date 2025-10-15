@@ -6,9 +6,13 @@ import { Alert, Box, Button, Typography, useTheme, Grid, Skeleton, Card, CardCon
 import ProjectCard from './ProjectCard';
 import AddEditProjectModal from './AddEditProjectModal';
 import { useAppContext } from '../context/Context';
+import { defaultProjects } from '../utils/defaultProjects';
+
+
+
 
 const Projects = () => {
-  const [projects, setProjects] = React.useState<Project[] | null>(null);
+  const [projects, setProjects] = React.useState<Project[] | null>(defaultProjects);
   const [isProjectsloading, setIsProjectsloading] = React.useState(true);
   const [showProjectsLoadingError, setShowProjectsLoadingError] = React.useState<boolean>(false);
   const [projectToEdit, setProjectToEdit] = React.useState<Project | null>(null);
@@ -36,7 +40,7 @@ const Projects = () => {
 
   const onNoteClicked = () => {};
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchProjects = async () => {
       try {
         const fetchedProjects = await projects_api.getAllProjects();
@@ -51,7 +55,7 @@ const Projects = () => {
       }
     };
     fetchProjects();
-  }, []);
+  }, []);*/
 
   return (
     <Box
@@ -74,7 +78,7 @@ const Projects = () => {
         </Alert>
       )}
       <Grid container spacing={2} sx={{ padding: 2 }}>
-        {isProjectsloading
+        {isProjectsloading && !projects
           ? Array.from({ length: 6 }).map((_, index) => (
               <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
                 <Card
