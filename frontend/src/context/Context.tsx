@@ -96,7 +96,12 @@ export const ProviderWithContext: React.FC<{ children: ReactNode }> = ({ childre
                 },
               }),
         },
-      }),
+        
+      },
+
+    
+    ),
+  
     [mode]
   );
 

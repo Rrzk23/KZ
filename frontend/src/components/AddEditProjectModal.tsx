@@ -91,11 +91,11 @@ const AddEditProjectModal: React.FC<AddEditProjectModalProps> = ({
         p: 4,
         borderRadius: 2,
       }}>
-        <Typography variant="h6" component="h2" gutterBottom>
+        <Typography id="modal-title" variant="h6" component="h2" gutterBottom>
           {projectToEdit ? "Edit Project" : "Add Project"}
         </Typography>
         <Box 
-          
+          component="form"
           onSubmit={handleSubmit(onSubmit, onError)} noValidate>
             
           <Controller

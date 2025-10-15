@@ -114,6 +114,7 @@ const HeroSection: React.FC = () => {
 
       {/* Image Section */}
       <Box
+        component="img"
         src="https://ik.imagekit.io/8rwehsppf/web-developer.svg?updatedAt=1760335261194"
         alt="Hero Section Image"
         sx={{
